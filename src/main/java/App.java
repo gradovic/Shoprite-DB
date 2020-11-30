@@ -1,4 +1,6 @@
 import javax.servlet.annotation.WebServlet;
+import java.awt.Desktop;
+import java.net.URI;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.plaf.nimbus.State;
@@ -15,9 +17,7 @@ public class App{
 	public static void main(String[] args) {
 
 		JdbcPostgresqlConnection jdbcPostgresqlConnection = new JdbcPostgresqlConnection();
-		jdbcPostgresqlConnection.connect();
-
-
+		System.out.println(jdbcPostgresqlConnection.connect());
 
 
 

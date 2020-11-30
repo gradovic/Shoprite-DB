@@ -16,7 +16,8 @@ public class LoginServlet extends HttpServlet {
         In future updates, initialize them as an SQL table instead.
          */
 
-        Employee employee1 = new Employee(1, "Andrew", "Associate");
+
+/*        Employee employee1 = new Employee(1, "Andrew", "Associate");
         Employee employee2 = new Employee(2, "Billy", "Bagger");
         Employee employee3 = new Employee(3, "Carl", "Cashier");
         Employee employee4 = new Employee(4, "Dylan", "Manager");
@@ -26,7 +27,7 @@ public class LoginServlet extends HttpServlet {
         employees.add(employee2);
         employees.add(employee3);
         employees.add(employee4);
-
+*/
 
         /*
         Connect to the servlet. Initialize variables based on the userinput.
@@ -54,9 +55,11 @@ public class LoginServlet extends HttpServlet {
             htmlRespone += "<h2>Your username is: " + username + "<br/>";
             htmlRespone += "Your password is: " + password + "<br/>";
             htmlRespone += "Your coworkers are:" + "<br/>";
-            for (Employee employee: employees){
-                htmlRespone += (employee) + "<br/>";
-            }
+
+            JdbcPostgresqlConnection jdbcPostgresqlConnection = new JdbcPostgresqlConnection();
+            jdbcPostgresqlConnection.connect();
+
+
             htmlRespone += "</h2>";
             htmlRespone += "</html>";
 
@@ -70,7 +73,7 @@ public class LoginServlet extends HttpServlet {
         ability to select an employee by name and change their job.
          */
 
-        else if (username.equals("Andy") && password.equals("password")){
+/*        else if (username.equals("Andy") && password.equals("password")){
 
             for (Employee employee: employees){
                 if (employee.getName().equals(personToChange)){
@@ -91,7 +94,7 @@ public class LoginServlet extends HttpServlet {
             // return response
             writer.println(htmlRespone);
         }
-
+*/
         /*
         If the username and/or password is incorrect, don't let the user do anything.
          */

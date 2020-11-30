@@ -1,10 +1,11 @@
 import java.sql.*;
 
 public class JdbcPostgresqlConnection {
-    public void connect(){
+    public String connect(){
         final String url = "jdbc:postgresql://localhost:5433/Shoprite";
 		final String user = "postgres";
 		final String password = "password123";
+		String result = "";
 			try(Connection connection = DriverManager.getConnection(url,user,password);){
 				if (connection != null){
 					System.out.println("Connected to PostgreSQL server successfully");
@@ -21,16 +22,18 @@ public class JdbcPostgresqlConnection {
 						String lastName = results.getString("last_name");
 						String job = results.getString("job");
 
-						System.out.printf("%d - %s - %s - %s\n", id, firstName, lastName, job);
+						result += id + " - " + firstName + " - " + lastName + " - " + job + "\n";
 					}
+					return result;
 
 				}
 				else{
-					System.out.println("Failed to connect to the PostgreSQL server");
+					return ("Failed to connect to the PostgreSQL server");
 				}
 			}
 			catch (SQLException e) {
 				e.printStackTrace();
 			}
+    return ("0");
     }
 }
