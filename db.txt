@@ -1,0 +1,4 @@
+1,Andy,Cashier
+2,Bob,Bagger
+3,Carl,Janitor
+4,Dylan,Manager
