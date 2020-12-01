@@ -1,3 +1,5 @@
+import com.revature.shoprite.DAO.JdbcPostgresqlConnection;
+
 import javax.servlet.annotation.WebServlet;
 import java.awt.Desktop;
 import java.net.URI;
@@ -12,19 +14,21 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-@WebServlet("/loginServlet")
 public class App{
 	public static void main(String[] args) {
 
 		JdbcPostgresqlConnection jdbcPostgresqlConnection = new JdbcPostgresqlConnection();
-		System.out.println(jdbcPostgresqlConnection.connect());
+		System.out.println(jdbcPostgresqlConnection.viewAll());
+
+		ExampleAddition exampleAddition = new ExampleAddition();
+		System.out.println(exampleAddition.seven());
 
 
 
 
 
-//			LoginServlet loginServlet = new LoginServlet();
-//			loginServlet.doPost(HttpServletRequest request, HttpServletResponse response);
+
+
 	}
 
 }
