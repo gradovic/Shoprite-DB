@@ -9,6 +9,7 @@
     Password: <input type="password" name="password"/> <br/>
     <input type="submit" value="Login" />
     </br>
-    PersonToChange: <input type="text" name="personToChange"/> <br/>
+    idToChange: <input type="text" name="idToChange"/> <br/>
     NewJob: <input type="text" name="newJob"/> <br/>
+
 </form>

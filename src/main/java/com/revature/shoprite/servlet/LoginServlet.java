@@ -16,43 +16,34 @@ import java.util.ArrayList;
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        PrintWriter writer = response.getWriter();
-
-
         JdbcPostgresqlConnection jdbcPostgresqlConnection = new JdbcPostgresqlConnection();
-        writer.println(jdbcPostgresqlConnection.viewAll());
 
 
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String idToChange = request.getParameter("idToChange");
+        String newJob = request.getParameter("newJob");
 
 
+        System.out.println("username: " + username);
+        System.out.println("password: " + password);
+        PrintWriter writer = response.getWriter();
+        String htmlRespone = "<html>";
+
+        if (username.equals("Bob") && password.equals("password")) {
+
+            htmlRespone += "<h2>Your username is: " + username + "<br/>";
+            htmlRespone += "Your password is: " + password + "<br/>";
+            htmlRespone += "Your coworkers are:" + "<br/>";
+
+            htmlRespone += (jdbcPostgresqlConnection.viewAll());
 
 
-//        String username = request.getParameter("username");
-//        String password = request.getParameter("password");
-//        String personToChange = request.getParameter("personToChange");
-//        String newJob = request.getParameter("newJob");
-
-
-
-  //      System.out.println("username: " + username);
-    //    System.out.println("password: " + password);
-      //  PrintWriter writer = response.getWriter();
-        //if (username.equals("Bob") && password.equals("password")){
-
-          //  String htmlRespone = "<html>";
-            //htmlRespone += "<h2>Your username is: " + username + "<br/>";
-//            htmlRespone += "Your password is: " + password + "<br/>";
-  //          htmlRespone += "Your coworkers are:" + "<br/>";
-
-    //        JdbcPostgresqlConnection jdbcPostgresqlConnection = new JdbcPostgresqlConnection();
-      //      htmlRespone += (jdbcPostgresqlConnection.viewAll());
-
-
-        //    htmlRespone += "</h2>";
-          //  htmlRespone += "</html>";
+            htmlRespone += "</h2>";
+            htmlRespone += "</html>";
 
             // return response
-            //writer.println(htmlRespone);
+            writer.println(htmlRespone);
         }
 
         /*
@@ -61,66 +52,34 @@ public class LoginServlet extends HttpServlet {
         ability to select an employee by name and change their job.
          */
 
-/*        else if (username.equals("Andy") && password.equals("password")){
-
-            for (Employee employee: employees){
-                if (employee.getName().equals(personToChange)){
-                    employee.setJob(newJob);
-                }
+        else if (username.equals("Andy") && password.equals("password")){
+            if (newJob == "fired" && idToChange != ""){
+                jdbcPostgresqlConnection.fire(Integer.parseInt(idToChange));
+    //            htmlRespone += "fired a person";
+            }
+            else if (newJob == "add"){
+                jdbcPostgresqlConnection.addEmployee("Annie","Paulsen","Trainee");
+  //              htmlRespone += "added a person";
+            }
+            else {
+                jdbcPostgresqlConnection.change(Integer.parseInt(idToChange), newJob);
+//                htmlRespone += "changed someone's job";
             }
 
-            String htmlRespone = "<html>";
             htmlRespone += "<h2>Your username is: " + username + "<br/>";
             htmlRespone += "Your password is: " + password + "<br/>";
-            htmlRespone += "You are the admin <br/>";
+            htmlRespone += "You are the admin! <br/>";
             htmlRespone += "Your employees are:" + "<br/>";
-            for (Employee employee: employees){
-                htmlRespone += (employee) + "<br/>";
-            }
-                    htmlRespone += "</html>";
+
+
+            htmlRespone += (jdbcPostgresqlConnection.viewAll());
+            htmlRespone += "</html>";
 
             // return response
             writer.println(htmlRespone);
         }
-*/
+        else{
 
-
-
-        /*
-        Initialize the employees, and put them all in an arraylist.
-        In future updates, initialize them as an SQL table instead.
-         */
-
-
-/*        Employee employee1 = new Employee(1, "Andrew", "Associate");
-        Employee employee2 = new Employee(2, "Billy", "Bagger");
-        Employee employee3 = new Employee(3, "Carl", "Cashier");
-        Employee employee4 = new Employee(4, "Dylan", "Manager");
-
-        ArrayList<Employee> employees = new ArrayList<Employee>();
-        employees.add(employee1);
-        employees.add(employee2);
-        employees.add(employee3);
-        employees.add(employee4);
-*/
-
-        /*
-        Connect to the servlet. Initialize variables based on the userinput.
-        */
-
-        /*
-        'Bob' is a placeholder for all non-admin users.
-        Return a list of all coworkers, but do not give this user
-        the ability to change anything.
-         */
-        /*
-        If the username and/or password is incorrect, don't let the user do anything.
-         */
-
-//        else{
-  //              writer.println("<div class=\"popup\" onclick=\"myFunction()\">" +
-    //            "  <span class=\"popuptext\" id=\"myPopup\">Wrong Username or Password</span>\n" +
-      //          "</div>");
-        //        }
-        //}
+        }
+    }
 }

@@ -36,14 +36,77 @@ public class JdbcPostgresqlConnection {
         }
         catch (SQLException e) {
             e.printStackTrace();
-            return ("0");
+            return ("Refresh Page Please");
         }
     }
 
-    public void change(String name, String job){
+    public void change(int id1, String job1){
+        try(Connection connection = DriverManager.getConnection(url,user,password);){
+            if (connection != null){
+                System.out.println("Connected to PostgreSQL server successfully");
+
+                String sql = "UPDATE employees" +
+                        "SET job=(?)" +
+                        "WHERE id=(?)";
+
+                PreparedStatement statement = connection.prepareStatement(sql);
+
+                statement.setString(1,job1);
+                statement.setInt(2,id1);
+
+                statement.executeQuery();
+
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+                    //SQL select based on ID number, change job to equal new job
     }
 
-    public void fire(String name){
+    public void fire(int id1){
+        try(Connection connection = DriverManager.getConnection(url,user,password);){
+            if (connection != null){
+                System.out.println("Connected to PostgreSQL server successfully");
+
+                String sql = "DELETE from employees WHERE id=(?)";
+
+                PreparedStatement statement = connection.prepareStatement(sql);
+
+                statement.setInt(1,id1);
+
+                statement.executeQuery();
+
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //SQL select based on ID number, delete the whole row
+    }
+    public void addEmployee(String firstName, String lastName, String job1){
+        try(Connection connection = DriverManager.getConnection(url,user,password);){
+            if (connection != null){
+                String sql = "INSERT INTO employees (first_name, last_name, job) VALUES (?, ?, ?)";
+
+                PreparedStatement statement = connection.prepareStatement(sql);
+
+                statement.setString(1, firstName);
+                statement.setString(2, lastName);
+                statement.setString(3, job1);
+
+
+                statement.executeQuery();
+
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 
