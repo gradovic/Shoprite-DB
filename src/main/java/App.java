@@ -18,7 +18,7 @@ public class App{
 	public static void main(String[] args) {
 
 		JdbcPostgresqlConnection jdbcPostgresqlConnection = new JdbcPostgresqlConnection();
-		jdbcPostgresqlConnection.addEmployee("John","Smith","Worker");
+//		jdbcPostgresqlConnection.addEmployee("John","Smith","Worker");
 
 		System.out.println(jdbcPostgresqlConnection.viewAll());
 

@@ -36,6 +36,7 @@ public class LoginServlet extends HttpServlet {
             htmlRespone += "Your password is: " + password + "<br/>";
             htmlRespone += "Your coworkers are:" + "<br/>";
 
+            jdbcPostgresqlConnection.viewAll();
             htmlRespone += (jdbcPostgresqlConnection.viewAll());
 
 
@@ -53,17 +54,19 @@ public class LoginServlet extends HttpServlet {
          */
 
         else if (username.equals("Andy") && password.equals("password")){
-            if (newJob == "fired" && idToChange != ""){
-                jdbcPostgresqlConnection.fire(Integer.parseInt(idToChange));
-    //            htmlRespone += "fired a person";
-            }
-            else if (newJob == "add"){
-                jdbcPostgresqlConnection.addEmployee("Annie","Paulsen","Trainee");
-  //              htmlRespone += "added a person";
-            }
-            else {
-                jdbcPostgresqlConnection.change(Integer.parseInt(idToChange), newJob);
-//                htmlRespone += "changed someone's job";
+            if (!idToChange.equals("")) {
+                if (newJob.equals("fire")){
+                    jdbcPostgresqlConnection.fire(Integer.parseInt(idToChange));
+                    htmlRespone += "fired a person";
+                }
+                else if (newJob.equals("add")){
+                    jdbcPostgresqlConnection.addEmployee("Annie","Paulsen","Trainee");
+                    htmlRespone += "added a person";
+                }
+                else {
+                    jdbcPostgresqlConnection.change(Integer.parseInt(idToChange), newJob);
+                    htmlRespone += "changed someone's job";
+                }
             }
 
             htmlRespone += "<h2>Your username is: " + username + "<br/>";
@@ -79,7 +82,8 @@ public class LoginServlet extends HttpServlet {
             writer.println(htmlRespone);
         }
         else{
-
+            htmlRespone += "Wrong username or password</html>";
+            writer.println(htmlRespone);
         }
     }
 }

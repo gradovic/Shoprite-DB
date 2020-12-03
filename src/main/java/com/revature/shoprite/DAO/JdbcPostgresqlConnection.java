@@ -1,5 +1,7 @@
 package com.revature.shoprite.DAO;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JdbcPostgresqlConnection {
     final String url = "jdbc:postgresql://localhost:5433/Shoprite";
@@ -7,8 +9,8 @@ public class JdbcPostgresqlConnection {
     final String password = "password123";
 
 
-    public String viewAll(){
-        String result = "";
+    public List viewAll(){
+        List result = new ArrayList();
         try(Connection connection = DriverManager.getConnection(url,user,password);){
             if (connection != null){
                 System.out.println("Connected to PostgreSQL server successfully");
@@ -20,23 +22,21 @@ public class JdbcPostgresqlConnection {
                 ResultSet results = statement.executeQuery(sql);
 
                 while (results.next()){
-                    int id = results.getInt("id");
-                    String firstName = results.getString("first_name");
-                    String lastName = results.getString("last_name");
-                    String job = results.getString("job");
-
-                    result += id + " - " + firstName + " - " + lastName + " - " + job + "\n";
+                    result.add("Employee #" + Integer.toString(results.getInt("id")) + ": " + results.getString("first_name") +
+                            " " + results.getString("last_name") + " the " + results.getString("job"));
                 }
                 return result;
 
             }
             else{
-                return ("Failed to connect to the PostgreSQL server");
+                result.add("Failed to connect to the PostgreSQL server");
+                return (result);
             }
         }
         catch (SQLException e) {
             e.printStackTrace();
-            return ("Refresh Page Please");
+            result.add("Refresh Page Please");
+            return (result);
         }
     }
 
@@ -45,16 +45,14 @@ public class JdbcPostgresqlConnection {
             if (connection != null){
                 System.out.println("Connected to PostgreSQL server successfully");
 
-                String sql = "UPDATE employees" +
-                        "SET job=(?)" +
-                        "WHERE id=(?)";
+                String sql = "UPDATE employees SET job=(?) WHERE id=(?)";
 
                 PreparedStatement statement = connection.prepareStatement(sql);
 
                 statement.setString(1,job1);
                 statement.setInt(2,id1);
 
-                statement.executeQuery();
+                ResultSet results = statement.executeQuery();
 
             }
         }
